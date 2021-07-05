@@ -1,18 +1,24 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <div><span>计算器</span> {{ count }}</div>
+    <div><span>double</span> {{ double }}</div>
+    <button @click="$store.state.count++">错误修改</button>
+    <button @click="$store.commit('add', 1)">z正确修改</button>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
+import { useStore } from "vuex";
+import { computed } from "vue";
 export default {
   name: "Home",
-  components: {
-    HelloWorld,
+  setup() {
+    const store = useStore();
+    console.log(store, "store");
+    return {
+      count: computed(() => store.state.count),
+      double: computed(() => store.getters.double),
+    };
   },
 };
 </script>
